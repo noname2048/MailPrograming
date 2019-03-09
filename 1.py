@@ -1,32 +1,13 @@
-def solve(arr:list) -> int:
-    k = len(arr)
-    i, j = 0, 1
-    mx = arr[0]
+def solve(arr: list) -> int:
+    currentMax = arr[0]
+    maxSum = currentMax
 
-    return _inner(arr, i, j , k)
+    for i in range(1, len(arr)):
+        currentMax = max((currentMax + arr[i], arr[i]))
+        maxSum = max((maxSum, currentMax))
 
-def _inner(arr:list, i:int, j:int, k:int) -> None:
+    return maxSum
 
-    if i - j == 1:
-        if k != j:
-            j += 1
-            _inner(arr, i, j, k)
-            mx = max(mx, sum(arr[i:j]))
-        else: # k == j
-            mx = max(mx, sum(arr[i:j]))
-
-    else:
-        if k == j:
-            i += 1
-            _inner(arr, i, j, k)
-            mx = max(mx, sum(arr[i:j]))
-        else:
-            if -arr[i] < arr[j]:
-                j += 1
-                mx = max(mx, sum(arr[i:j]))
-            elif -arr[i] >= arr[j]:
-                i += 1
-                mx = max(mx, sum(arr[i:j]))
 
 if __name__ == "__main__":
-    solve([2,4,-2,-3,8])
+    print(solve([4, -5, 2, 2, 2]))
