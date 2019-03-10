@@ -1,18 +1,25 @@
-def solve(arr:list) -> int:
+mx = 0
+
+
+def solve(arr: list) -> int:
     k = len(arr)
     i, j = 0, 1
+    global mx
     mx = arr[0]
 
-    return _inner(arr, i, j , k)
+    _inner(arr, i, j, k)
+    return mx
 
-def _inner(arr:list, i:int, j:int, k:int) -> None:
+
+def _inner(arr: list, i: int, j: int, k: int) -> None:
+    global mx
 
     if i - j == 1:
         if k != j:
             j += 1
             _inner(arr, i, j, k)
             mx = max(mx, sum(arr[i:j]))
-        else: # k == j
+        else:  # k == j
             mx = max(mx, sum(arr[i:j]))
 
     else:
@@ -28,5 +35,6 @@ def _inner(arr:list, i:int, j:int, k:int) -> None:
                 i += 1
                 mx = max(mx, sum(arr[i:j]))
 
+
 if __name__ == "__main__":
-    solve([2,4,-2,-3,8])
+    print(solve([2, 4, -2, -3, 8]))
